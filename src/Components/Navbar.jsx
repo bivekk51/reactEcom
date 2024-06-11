@@ -3,7 +3,11 @@ import { NavLink } from 'react-router-dom';
 const Navbar = () => {
     return (
         <nav className="bg-blue-700 p-4 flex items-center">
-            <div className="title text-white text-xl font-bold flex-grow">KinBech</div>
+            <div className="title text-white text-xl font-bold flex-grow">
+                <NavLink to="/">
+                    KinBech
+                </NavLink>
+            </div>
             <div className="links">
                 <ul className="flex justify-end items-center space-x-4">
                     <li >
