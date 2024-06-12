@@ -1,6 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 const Navbar = () => {
+    const { loginWithRedirect } = useAuth0();
+    const { logout } = useAuth0();
+    const { isAuthenticated } = useAuth0();
+
     return (
         <nav className="bg-blue-700 p-4 flex items-center">
             <div className="title text-white text-xl font-bold flex-grow">
@@ -20,16 +25,26 @@ const Navbar = () => {
                             Home
                         </NavLink>
                     </li>
-                    <li >
-                        <NavLink to="/login" className="text-white hover:text-gray-400 cursor-pointer">
-                            Login
-                        </NavLink>
-                    </li>
-                    <li >
-                        <NavLink to="/createaccount" className="text-white hover:text-gray-400 cursor-pointer">
-                            Signup
-                        </NavLink>
-                    </li>
+                    {
+                        isAuthenticated ? (
+                            <li >
+                                <div className="text-white hover:text-gray-400 cursor-pointer">
+                                    <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                                        Log Out
+                                    </button>
+                                </div>
+                            </li>
+                        ) : (
+                            <li >
+                                <div className="text-white hover:text-gray-400 cursor-pointer">
+                                    <button onClick={() => loginWithRedirect()}>Log In</button>
+                                </div>
+                            </li>
+                        )
+
+                    }
+
+
                 </ul>
             </div>
         </nav>
